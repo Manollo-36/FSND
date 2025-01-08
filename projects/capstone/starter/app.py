@@ -2,7 +2,7 @@
 from flask import Flask,jsonify
 from flask_cors import CORS
 from models import setup_db, Actors,Movies
-from .auth.auth import AuthError, requires_auth
+from heroku.auth import AuthError, requires_auth
 
 def create_app(test_config=None):
 

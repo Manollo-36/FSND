@@ -1,10 +1,10 @@
 
 import os
-from click import DateTime
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String,Integer,DATETIME
 from flask_sqlalchemy import SQLAlchemy
 import json
-
+env = os.environ
+print(env)
 database_path = os.environ['DATABASE_URL']
 if database_path.startswith("postgres://"):
   database_path = database_path.replace("postgres://", "postgresql://", 1)
@@ -27,9 +27,9 @@ def setup_db(app, database_path=database_path):
 class Actors(db.Model):  
   __tablename__ = 'Actors'
 
-  id = Column(db.Integer, primary_key=True)
+  id = Column(Integer, primary_key=True)
   name = Column(String,nullable=False)
-  age = Column(db.Integer,nullable=False)
+  age = Column(Integer,nullable=False)
   gender = Column(String,nullable=False)
  
 
@@ -45,11 +45,11 @@ class Actors(db.Model):
   
 class Movies(db.Model):  
     __tablename__ = 'Movies'
-    id = Column(db.Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     title = Column(String,nullable=False)
-    release_date = Column(DateTime,nullable=False)
-    duration = Column(db.Integer, nullable=False)
-    imdb_rating = Column(db.Integer, nullable=False)
+    release_date = Column(DATETIME,nullable=False)
+    duration = Column(Integer, nullable=False)
+    imdb_rating = Column(Integer, nullable=False)
     cast = db.relationship('Actor',backref='movies', lazy='joined',cascade='all,delete')
 
     def __init__(self, name, age,gender):
